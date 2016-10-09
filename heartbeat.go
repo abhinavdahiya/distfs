@@ -1,11 +1,11 @@
 package main
 
 import (
-	"errors"
 	"net"
 	"os"
 
 	"github.com/distfs/disk"
+	"github.com/pkg/errors"
 )
 
 var (
@@ -68,10 +68,10 @@ func GetLocalAddr() (net.IP, error) {
 	}
 
 	for _, i := range ifaces {
-		if iface.Flags&net.FlagUp == 0 {
+		if i.Flags&net.FlagUp == 0 {
 			continue // interface down
 		}
-		if iface.Flags&net.FlagLoopback != 0 {
+		if i.Flags&net.FlagLoopback != 0 {
 			continue // loopback interface
 		}
 		addrs, err := i.Addrs()

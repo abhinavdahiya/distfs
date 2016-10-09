@@ -21,11 +21,11 @@ var (
 // Think of it as "df" UNIX command.
 func Space() (int64, int64, error) {
 	s := syscall.Statfs_t{}
-	err = syscall.Statfs(RootUnix, &s)
+	err := syscall.Statfs(RootUnix, &s)
 	if err != nil {
 		return -1, -1, errors.Wrap(err, ErrCalcSpace)
 	}
-	total := s.Bsize * s.Blocks
-	free := s.Bsize * s.Bfree
+	total := s.Bsize * int64(s.Blocks)
+	free := s.Bsize * int64(s.Bfree)
 	return total, free, nil
 }
