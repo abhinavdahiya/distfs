@@ -28,7 +28,7 @@ func (c *Client) Send() (bool, error) {
 		return false, errors.Wrap(err, "Error getting file info")
 	}
 
-	p := os.Getenv("PORT")
+	p := os.Getenv("PORT_FILE")
 	if p == "" {
 		p = PORT
 	}
@@ -50,7 +50,7 @@ func (c *Client) Send() (bool, error) {
 // StreamFile breaks a file down into smaller pieces and sends it to the server
 // via TCP.
 func (c *Client) StreamFile(conn net.Conn, file *os.File) (bool, error) {
-	sendBuffer := make([]byte, BufferSize)
+	sendBuffer := make([]byte, BUFFER_SIZE)
 	for {
 		_, err := file.Read(sendBuffer)
 		if err == io.EOF {
